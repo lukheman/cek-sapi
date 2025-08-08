@@ -1,56 +1,41 @@
-<aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
-    <!--begin::Sidebar Brand-->
-    <div class="sidebar-brand">
-        <!--begin::Brand Link-->
-        <a href="./index.html" class="brand-link">
-            <!--begin::Brand Image-->
-            <img
-                src="./assets/img/AdminLTELogo.png"
-                alt="AdminLTE Logo"
-                class="brand-image opacity-75 shadow"
-            />
-            <!--end::Brand Image-->
-            <!--begin::Brand Text-->
-            <span class="brand-text fw-light">AdminLTE 4</span>
-            <!--end::Brand Text-->
-        </a>
-        <!--end::Brand Link-->
-    </div>
-    <!--end::Sidebar Brand-->
-    <!--begin::Sidebar Wrapper-->
-    <div class="sidebar-wrapper">
-        <nav class="mt-2">
-            <!--begin::Sidebar Menu-->
-            <ul
-                class="nav sidebar-menu flex-column"
-                data-lte-toggle="treeview"
-                role="navigation"
-                aria-label="Main navigation"
-                data-accordion="false"
-                id="navigation"
-            >
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+          <ul class="nav">
+            <li class="nav-item nav-profile">
+              <a href="#" class="nav-link">
+                <div class="nav-profile-image">
+                  <img src="{{ auth()->user()->photo ? asset('storage/' . (auth()->user()->photo ?? '')) : 'assets/img/user2-160x160.jpg' }}" alt="profile">
+                  <span class="login-status online"></span>
+                  <!--change to offline or busy as needed-->
+                </div>
+                <div class="nav-profile-text d-flex flex-column">
+                  <span class="font-weight-bold mb-2">{{ auth()->user()->name }}</span>
+                  <span class="text-secondary text-small">{{  auth()->user()->role ?? ''}}</span>
+                </div>
+                <!-- <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i> -->
+              </a>
+            </li>
 
-                        <x-nav-link
-                            href="{{ route('index')}}"
-                            active="{{ request()->routeIs('index')}}"
-                        >
-                            Dashboard
-                        </x-nav-link>
-                        <x-nav-link
-                            href="{{ route('profile')}}"
-                            active="{{ request()->routeIs('profile')}}"
-                        >
-                            Profile
-                        </x-nav-link>
-                        <x-nav-link
-                            href="{{ route('user-table')}}"
-                            active="{{ request()->routeIs('user-table')}}"
-                        >
-                        Pengguna
-                        </x-nav-link>
-            </ul>
-            <!--end::Sidebar Menu-->
+                <x-nav-link
+                    icon="mdi-home"
+                    :href="route('index')"
+                    :active="request()->routeIs('index')"
+                >
+                    Dashboard
+                </x-nav-link>
+
+                <x-nav-link
+                    icon="mdi-account-multiple"
+                    :href="route('user-table')"
+                    :active="request()->routeIs('user-table')"
+                >
+                    Pengguna
+                </x-nav-link>
+
+                <x-nav-link
+                    icon="mdi-account"
+                    :href="route('profile')"
+                    :active="request()->routeIs('profile')"
+                >Profile </x-nav-link>
+
+          </ul>
         </nav>
-    </div>
-    <!--end::Sidebar Wrapper-->
-</aside>

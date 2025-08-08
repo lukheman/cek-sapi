@@ -20,7 +20,7 @@
                 <form wire:submit.prevent="save">
       <div class="modal-body">
                     @foreach ($formFields as $field)
-                        <div class="mb-3">
+            <div class="form-group">
                             <label for="{{ $field['field'] }}" class="form-label">{{ $field['label'] }}</label>
                             <input wire:model="form.{{ $field['field'] }}" type="text" class="form-control" id="{{ $field['field'] }}" placeholder="{{ $field['label'] }}">
                             @error("form.{$field['field']}")
@@ -55,9 +55,6 @@
                     @foreach ($columns as $column)
                         <th scope="col" wire:click="sortBy('{{ $column['field'] }}')" class="cursor-pointer">
                             {{ $column['label'] }}
-                            @if ($sortBy === $column['field'])
-                                {{ $sortDirection === 'asc' ? '↑' : '↓' }}
-                            @endif
                         </th>
                     @endforeach
                     <th scope="col" class="text-end">Aksi</th>
@@ -71,12 +68,14 @@
                         @endforeach
                         <td class="text-end">
                             <button wire:click="showEditForm({{ $item->id }})" class="btn btn-primary btn-sm">Edit</button>
-                            <button wire:click="delete({{ $item->id }})" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus?')">Hapus</button>
+                            <button wire:click="delete({{ $item->id }})" class="btn btn-danger btn-sm">Hapus</button>
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
+        <div class="mt-3">
         {{ $data->links() }}
+        </div>
     </div>
 </div>

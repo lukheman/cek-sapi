@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Traits\WithModal;
 use App\Traits\WithNotify;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -23,6 +24,7 @@ class GenericTable extends Component
     public $sortDirection = 'asc';
     public $form = [];
     public $editingId = null;
+    public $selectedIdData = null;
     public $modalId = 'modal-form';
 
     public function mount($model, $columns, $formFields = [], $rules = [])
@@ -75,10 +77,19 @@ class GenericTable extends Component
 
     public function delete($id)
     {
-        $modelClass = $this->model;
-        $modelClass::findOrFail($id)->delete();
-        $this->dispatch('refreshComponent');
-        $this->notifySuccess('Data berhasil dihapus!');
+        $this->selectedIdData = $id;
+        $this->dispatch('deleteConfirmation', message: 'Yakin untuk menghapus data ini?');
+    }
+
+    #[On('deleteConfirmed')]
+    public function deleteConfirmed() {
+
+        try {
+            $this->model::findOrFail($this->selectedIdData)->delete();
+            $this->notifySuccess('Data berhasil dihapus!');
+        } catch (\Exception $e) {
+            $this->notifyError('Gagal menghapus data: '.$e->getMessage());
+        }
     }
 
     public function showAddForm()
@@ -140,9 +151,9 @@ class GenericTable extends Component
             });
         }
 
-        if ($this->sortBy) {
-            $query->orderBy($this->sortBy, $this->sortDirection);
-        }
+        // if ($this->sortBy) {
+        //     $query->orderBy($this->sortBy, $this->sortDirection);
+        // }
 
         $data = $query->latest()->paginate($this->perPage);
 
