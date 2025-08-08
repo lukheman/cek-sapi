@@ -49,7 +49,7 @@
         </div>
     </div>
     <div class="card-body">
-        <table class="table table-striped">
+        <table class="table table-striped table-bordered table-hover">
             <thead>
                 <tr>
                     @foreach ($columns as $column)
