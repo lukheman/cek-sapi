@@ -1,4 +1,4 @@
-@props(['href', 'active' => false, 'icon' => 'fa-home'])
+@props(['href', 'active' => false, 'icon' => 'bi-amd'])
 
 @php
     $classes = $active ? 'nav-item active' : 'nav-item';
@@ -7,6 +7,6 @@
 <li {{ $attributes->class([$classes]) }}>
     <a class="nav-link" href="{{ $href }}">
         <span class="menu-title">{{ $slot }}</span>
-        <i class="mdi {{ $icon }} menu-icon"></i>
+        <i class="bi {{ $icon }} menu-icon"></i>
     </a>
 </li>

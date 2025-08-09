@@ -18,6 +18,7 @@ class GenericTable extends Component
     public $columns;
     public $formFields;
     public $rules;
+    public $messages;
     public $perPage = 10;
     public $search = '';
     public $sortBy = '';
@@ -27,12 +28,13 @@ class GenericTable extends Component
     public $selectedIdData = null;
     public $modalId = 'modal-form';
 
-    public function mount($model, $columns, $formFields = [], $rules = [])
+    public function mount($model, $columns, $formFields = [], $rules = [], $messages = [])
     {
         $this->model = $model;
         $this->columns = $this->normalizeFields($columns); // Normalisasi kolom
         $this->formFields = $formFields ? $this->normalizeFields($formFields) : $this->columns; // Gunakan kolom jika formFields kosong
         $this->rules = $rules ?: $this->generateDefaultRules();
+        $this->messages = $messages;
         $this->sortBy = $this->columns[0]['field'];
     }
 
@@ -112,7 +114,7 @@ class GenericTable extends Component
 
     public function save()
     {
-        $this->validate($this->rules);
+        $this->validate($this->rules, $this->messages);
 
         $modelClass = $this->model;
         if ($this->editingId) {

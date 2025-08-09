@@ -3,7 +3,7 @@
             <li class="nav-item nav-profile">
               <a href="#" class="nav-link">
                 <div class="nav-profile-image">
-                  <img src="{{ auth()->user()->photo ? asset('storage/' . (auth()->user()->photo ?? '')) : 'assets/img/user2-160x160.jpg' }}" alt="profile">
+                  <img src="{{ auth()->user()->photo ? asset('storage/' . (auth()->user()->photo ?? '')) : 'assets/images/faces/face1.jpg' }}" alt="profile">
                   <span class="login-status online"></span>
                   <!--change to offline or busy as needed-->
                 </div>
@@ -16,7 +16,7 @@
             </li>
 
                 <x-nav-link
-                    icon="mdi-home"
+                    icon="bi-house"
                     :href="route('index')"
                     :active="request()->routeIs('index')"
                 >
@@ -24,7 +24,7 @@
                 </x-nav-link>
 
                 <x-nav-link
-                    icon="mdi-account-multiple"
+                    icon="bi-people"
                     :href="route('user-table')"
                     :active="request()->routeIs('user-table')"
                 >
@@ -32,7 +32,25 @@
                 </x-nav-link>
 
                 <x-nav-link
-                    icon="mdi-account"
+                    icon="bi-bag-plus"
+                    :href="route('penyakit.table')"
+                    :active="request()->routeIs('penyakit.table')"
+                >Penyakit</x-nav-link>
+
+                <x-nav-link
+                    icon="bi-book"
+                    :href="route('gejala.table')"
+                    :active="request()->routeIs('gejala.table')"
+                >Gejala</x-nav-link>
+
+                <x-nav-link
+                    icon="bi-book"
+                    :href="route('basis-pengetahuan')"
+                    :active="request()->routeIs('basis-pengetahuan')"
+                >Basis Pengetahuan</x-nav-link>
+
+                <x-nav-link
+                    icon="bi-person-circle"
                     :href="route('profile')"
                     :active="request()->routeIs('profile')"
                 >Profile </x-nav-link>

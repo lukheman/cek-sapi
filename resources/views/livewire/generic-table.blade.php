@@ -24,7 +24,7 @@
                             <label for="{{ $field['field'] }}" class="form-label">{{ $field['label'] }}</label>
                             <input wire:model="form.{{ $field['field'] }}" type="text" class="form-control" id="{{ $field['field'] }}" placeholder="{{ $field['label'] }}">
                             @error("form.{$field['field']}")
-                                <span class="text-danger">{{ $message }}</span>
+                                <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                     @endforeach

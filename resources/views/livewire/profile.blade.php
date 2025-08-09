@@ -6,7 +6,7 @@
             <div class="card-body">
 
                 <div class="d-flex justify-content-center align-items-center flex-column">
-                        <img src="{{ auth()->user()->photo ? asset('storage/' . (auth()->user()->photo ?? '')) : 'assets/img/user2-160x160.jpg' }}" alt="" class="user-image rounded-circle" width="120">
+                        <img src="{{ auth()->user()->photo ? asset('storage/' . (auth()->user()->photo ?? '')) : 'assets/images/faces/face1.jpg' }}" alt="" class="user-image rounded-circle" width="120">
 
                     <div class="mt-2">
                         <label for="profile-photo" class="btn btn-outline-primary btn-sm" style="cursor: pointer;">

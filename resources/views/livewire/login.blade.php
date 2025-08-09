@@ -1,32 +1,40 @@
+<!-- Login Section -->
+<section class="login-container">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <div class="card shadow-sm">
+                    <div class="card-body p-5">
+                        <h2 class="text-center section-title">Login</h2>
+                        <x-flash-message />
+                        <form wire:submit="submit">
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Username atau Email</label>
+                                <input wire:model="email" type="text" class="form-control" id="username" name="username" placeholder="Masukkan username atau email" required>
+                                @error('email')
 
-          <div class="row flex-grow">
-            <div class="col-lg-4 mx-auto">
-              <div class="auth-form-light text-left p-5">
-                <div class="brand-logo">
-                  <img src="{{ asset('assets/images/logo.svg')}}">
+                                <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input wire:model="password" type="password" class="form-control" id="password" name="password" placeholder="Masukkan password" required>
+
+                                @error('password')
+
+                                <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-success btn-lg">Login</button>
+                            </div>
+                        </form>
+                        <p class="text-center mt-3 mb-0">
+                            Belum punya akun? <a href="/register" class="text-success">Daftar sekarang</a>
+                        </p>
+                    </div>
                 </div>
-                <h4>Hello! let's get started</h4>
-                <h6 class="font-weight-light">Sign in to continue.</h6>
-                <form class="pt-3" wire:submit="submit">
-                  <div class="form-group">
-                    <input wire:model="email" type="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Username">
-                  </div>
-                  <div class="form-group">
-                    <input wire:model="password" type="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password">
-                  </div>
-                  <div class="mt-3">
-                    <button type="submit" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn">SIGN IN</button>
-                  </div>
-                  <!-- <div class="my-2 d-flex justify-content-between align-items-center"> -->
-                  <!--   <div class="form-check"> -->
-                  <!--     <label class="form-check-label text-muted"> -->
-                  <!--       <input type="checkbox" class="form-check-input"> Keep me signed in </label> -->
-                  <!--   </div> -->
-                  <!--   <a href="#" class="auth-link text-black">Forgot password?</a> -->
-                  <!-- </div> -->
-                  <!-- <div class="text-center mt-4 font-weight-light"> Don't have an account? <a href="register.html" class="text-primary">Create</a> -->
-                  </div>
-                </form>
-              </div>
             </div>
-          </div>
+        </div>
+    </div>
+</section>
