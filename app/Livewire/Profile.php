@@ -2,31 +2,34 @@
 
 namespace App\Livewire;
 
+use App\Livewire\Forms\ProfileForm;
 use App\Models\User;
 use App\Traits\WithNotify;
 use Livewire\Attributes\Title;
 use Livewire\Component;
-use App\Livewire\Forms\ProfileForm;
 use Livewire\WithFileUploads;
 
 #[Title('Profile')]
 class Profile extends Component
 {
-    use WithNotify;
     use WithFileUploads;
+    use WithNotify;
 
     public ProfileForm $form;
-
-    public User $user;
-
 
     public function mount()
     {
 
-        $this->user = User::find(auth()->user()->id);
+        $user = User::find(auth()->user()->id);
 
-        $this->form->name = $this->user->name;
-        $this->form->email = $this->user->email;
+        $this->form->user = $user;
+        $this->form->name = $user->name;
+        $this->form->email = $user->email;
+        // $this->form->photo = $user->photo;
+        $this->form->pendidikan = $user->pendidikan;
+        $this->form->jabatan = $user->jabatan;
+        $this->form->tanggal_lahir = $user->tanggal_lahir;
+
     }
 
     public function edit()
@@ -37,6 +40,7 @@ class Profile extends Component
         }
 
     }
+
     public function render()
     {
         return view('livewire.profile');

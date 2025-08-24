@@ -6,15 +6,18 @@
             <div class="card-body">
 
                 <div class="d-flex justify-content-center align-items-center flex-column">
-                        <img src="{{ auth()->user()->photo ? asset('storage/' . (auth()->user()->photo ?? '')) : 'assets/images/faces/face1.jpg' }}" alt="" class="user-image rounded-circle" width="120">
+                        <img src="{{ $form->user->photo ? asset('storage/' . ($form->user->photo ?? '')) : 'assets/images/faces/face1.jpg' }}" alt="" class="user-image rounded-circle" width="120">
 
                     <div class="mt-2">
                         <label for="profile-photo" class="btn btn-outline-primary btn-sm" style="cursor: pointer;">
                             <i class="bi bi-camera"></i> Ganti Foto
                         </label>
                         <input wire:model="form.photo" type="file" id="profile-photo" class="d-none" accept="image/*">
+                        @error('form.photo')
+                        <small class="d-block mt-1 text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
-                    <h3 class="mt-3">{{ $user->name }}</h3>
+                    <h3 class="mt-3">{{ $form->user->name }}</h3>
                     <!-- <p class="text-small">Akmal</p> -->
                 </div>
             </div>
@@ -25,7 +28,6 @@
     <div class="col-12 col-lg-8">
         <div class="card">
             <div class="card-body">
-                <form wire:submit="edit">
                     <div class="form-group">
                         <label for="name" class="form-label">Name</label>
                         <input wire:model="form.name" type="text" id="name" class="form-control" placeholder="Masukkan nama Anda">
@@ -41,6 +43,30 @@
                         @enderror
                     </div>
 
+                    <div class="form-group">
+                        <label for="tanggal-lahir" class="form-label">Tanggal Lahir</label>
+                        <input wire:model="form.tanggal_lahir" type="date" id="tanggal-lahir" class="form-control">
+                        @error('form.tanggal_lahir')
+                        <small class="d-block mt-1 text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pendidikan" class="form-label">Pendidikan</label>
+                        <input wire:model="form.pendidikan" type="text" id="pendidikan" class="form-control">
+                        @error('form.pendidikan')
+                        <small class="d-block mt-1 text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="jabatan" class="form-label">Jabatan</label>
+                        <input wire:model="form.jabatan" type="text" id="pendidikan" class="form-control">
+                        @error('form.jabatan')
+                        <small class="d-block mt-1 text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+
 
                     <div class="form-group">
                         <label for="password" class="form-label">Password</label>
@@ -49,8 +75,7 @@
                         <small class="d-block mt-1 text-danger">{{ $message }}</small>
                         @enderror
                     </div>
-                    <button type="submit" class="mt-3 btn btn-primary">Simpan Perubahan</button>
-                </form>
+                    <button type="button" wire:click="edit" class="mt-3 btn btn-primary">Simpan Perubahan</button>
             </div>
         </div>
     </div>
