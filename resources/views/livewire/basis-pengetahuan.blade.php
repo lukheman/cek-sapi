@@ -70,6 +70,8 @@
                                     <div class="form-group">
                                         <label for="probabilitas">Probabilitas</label>
                                         <input type="number" step="0.1" min="0" max="1" class="form-control" wire:model="probabilitas">
+                @error('probabilitas') <small class="text-danger">{{ $message }}</small> @enderror
+
                                     </div>
 
                                     <button wire:click="saveGejalaPenyakit" class="btn btn-success float-end">Simpan</button>

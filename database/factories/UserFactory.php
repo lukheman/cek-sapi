@@ -26,6 +26,10 @@ class UserFactory extends Factory
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
+            'tanggal_lahir' => fake()->date('Y-m-d', '-18 years'), // tanggal lahir minimal 18 tahun
+            'pendidikan' => fake()->randomElement(['SMA', 'D3', 'S1', 'S2', 'S3']),
+            'jabatan' => fake()->jobTitle(),
+            'tempat_lahir' => fake()->city(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password123'),
             'remember_token' => Str::random(10),

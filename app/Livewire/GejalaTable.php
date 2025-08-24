@@ -2,35 +2,93 @@
 
 namespace App\Livewire;
 
+use App\Livewire\Forms\GejalaForm;
 use App\Models\Gejala;
+use App\Traits\WithConfirmation;
+use App\Traits\WithModal;
+use App\Traits\WithNotify;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\On;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class GejalaTable extends Component
 {
+    use WithConfirmation;
+    use WithModal;
+    use WithNotify;
+    use WithPagination;
 
-    public $model = Gejala::class;
+    public GejalaForm $form;
 
-    public $columns = [
-        ['field' => 'kode', 'label' => 'Kode Gejala'],
-        ['field' => 'nama', 'label' => 'Nama Gejala'],
-    ];
+    public $modalFormState = 'create';
 
-    public $formFields = [
-        ['field' => 'kode', 'label' => 'Kode Gejala'],
-        ['field' => 'nama', 'label' => 'Nama Gejala'],
-    ];
+    public string $search = '';
 
-    public $rules = [
-        'form.nama' => 'required|string|max:255',
-        'form.kode' => 'required|unique:gejala,kode',
-    ];
+    public $modalId = 'modal-gejala';
 
-    public $messages = [
-        'form.nama.required' => 'Silakan masukkan nama gejala.',
-        'form.nama.max' => 'Nama gejala maksimal terdiri dari 255 karakter.',
-        'form.kode.required' => 'Silakan masukkan kode gejala.',
-        'form.kode.unique' => 'Kode gejala yang Anda masukkan sudah digunakan. Harap gunakan kode lain.',
-    ];
+    public function cancel()
+    {
+        $this->closeModal($this->modalId);
+    }
+
+    #[Computed]
+    public function gejalaList()
+    {
+        return Gejala::query()
+            ->when($this->search, function ($query) {
+                $query->where('nama', 'like', '%'.$this->search.'%');
+            })
+            ->latest()
+            ->paginate(10);
+    }
+
+    public function showAddForm()
+    {
+        $this->form->reset();
+        $this->modalFormState = 'create';
+        $this->openModal($this->modalId);
+    }
+
+    public function showEditForm($id)
+    {
+        $this->modalFormState = 'edit';
+
+        $this->form->gejala = Gejala::find($id);
+
+        $this->form->kode = $this->form->gejala->kode;
+        $this->form->nama = $this->form->gejala->nama;
+
+        $this->openModal($this->modalId);
+    }
+
+    public function delete($id): void
+    {
+        $this->form->gejala = Gejala::find($id);
+        $this->deleteConfirmation('Yakin untuk menghapus data gejala ini ?');
+    }
+
+    #[On('deleteConfirmed')]
+    public function deleteConfirmed(): void
+    {
+        $this->notifySuccess("Berhasil menghapus gejala: {$this->form->gejala->kode} - {$this->form->gejala->nama}");
+        $this->form->delete();
+    }
+
+    public function save(): void
+    {
+
+        if ($this->modalFormState === 'create') {
+            $this->form->store();
+            $this->notifySuccess('Berhasil menambahkan gejala baru');
+        } elseif ($this->modalFormState === 'edit') {
+            $this->form->update();
+            $this->notifySuccess('Berhasil memperbarui gejala');
+        }
+
+        $this->closeModal($this->modalId);
+
+    }
 
     public function render()
     {

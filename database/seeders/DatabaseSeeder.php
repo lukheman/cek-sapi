@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use App\Models\Penyakit;
 use App\Models\Gejala;
+use App\Models\Penyakit;
+use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
             foreach ($randomGejala as $gejala) {
                 $pivotData[$gejala->id] = [
                     /* 'mb' => rand(1, 100) / 100,  // hasil antara 0.01 - 1.00 */
-                    'probabilitas' => rand(1, 100) / 100  // hasil antara 0.01 - 1.00 */
+                    'probabilitas' => rand(1, 100) / 100,  // hasil antara 0.01 - 1.00 */
                 ];
             }
 
@@ -38,7 +38,8 @@ class DatabaseSeeder extends Seeder
         }
 
         User::factory()->create([
-            'name' => 'Admin',
+            'name' => 'Admin / Pakar',
+            'jabatan' => 'Pakar Perikanan',
             'email' => 'admin@gmail.com',
         ]);
     }

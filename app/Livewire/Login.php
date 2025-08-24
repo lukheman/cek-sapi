@@ -10,21 +10,20 @@ use Livewire\Component;
 #[Layout('layouts.guest')]
 class Login extends Component
 {
-
     #[Rule(['required', 'email', 'exists:users,email'])]
     public string $email = '';
 
     #[Rule(['required'])]
     public string $password = '';
 
-    public function submit() {
+    public function submit()
+    {
 
-        if(Auth::attempt($this->validate())) {
-            redirect()->route('index');
+        if (Auth::attempt($this->validate())) {
+            redirect()->route('dashboard');
         }
 
         flash('Email atau password tidak valid', 'danger');
-
 
     }
 

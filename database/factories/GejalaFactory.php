@@ -16,7 +16,7 @@ class GejalaFactory extends Factory
      */
     public function definition(): array
     {
-         return [
+        return [
             'kode' => $this->faker->unique()->regexify('G[0-9]{3}'),
             'nama' => $this->faker->words(2, true),
         ];

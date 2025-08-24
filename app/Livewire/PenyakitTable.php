@@ -2,50 +2,100 @@
 
 namespace App\Livewire;
 
-use Illuminate\Validation\Rule;
-use Livewire\Component;
+use App\Livewire\Forms\PenyakitForm;
 use App\Models\Penyakit;
+use App\Traits\WithConfirmation;
+use App\Traits\WithModal;
+use App\Traits\WithNotify;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\On;
+use Livewire\Component;
+use Livewire\WithPagination;
 
 class PenyakitTable extends Component
 {
-    public $model = Penyakit::class;
+    use WithConfirmation;
+    use WithModal;
+    use WithNotify;
+    use WithPagination;
 
-    public $columns = [
-        ['field' => 'kode', 'label' => 'Kode Penyakit'],
-        ['field' => 'nama', 'label' => 'Nama Penyakit'],
-        ['field' => 'probabilitas', 'label' => 'Probabilitas'],
-    ];
+    public PenyakitForm $form;
 
-    public $formFields = [
-        ['field' => 'kode', 'label' => 'Kode Penyakit'],
-        ['field' => 'nama', 'label' => 'Nama Penyakit'],
-        ['field' => 'probabilitas', 'label' => 'Probabilitas'],
-    ];
+    public string $modalFormState = 'create';
 
-    protected function rules(): array {
-        return [
-            'form.nama' => 'required|string|max:255',
-            'form.kode' => [
-                'required',
-                Rule::unique('penyakit', 'kode')->ignore($this->editingId),
-            ],
-            'form.probabilitas' => 'required|numeric'
-        ];
+    public string $search = '';
 
+    public $modalId = 'modal-penyakit';
+
+    #[Computed]
+    public function penyakitList()
+    {
+
+        return Penyakit::query()
+            ->when($this->search, function ($query) {
+                $query->where('nama', 'like', '%'.$this->search.'%');
+            })
+            ->latest()
+            ->paginate(10);
     }
 
-    public function messages(): array {
-        return [
-            'form.nama.required' => 'Silakan masukkan nama penyakit.',
-            'form.nama.max' => 'Nama penyakit maksimal terdiri dari 255 karakter.',
-            'form.kode.required' => 'Silakan masukkan kode penyakit.',
-            'form.kode.unique' => 'Kode penyakit yang Anda masukkan sudah digunakan. Harap gunakan kode lain.',
-            'form.probabilitas.required' => 'Silakan masukan probabilitas penyakit'
-        ];
+    public function showAddForm()
+    {
+        $this->form->reset();
+        $this->modalFormState = 'create';
+        $this->openModal($this->modalId);
     }
 
+    public function showEditForm($id)
+    {
+        $this->modalFormState = 'edit';
 
+        $this->form->penyakit = Penyakit::find($id);
 
+        $this->form->kode = $this->form->penyakit->kode;
+        $this->form->nama = $this->form->penyakit->nama;
+
+        $this->form->probabilitas = $this->form->penyakit->probabilitas;
+        $this->form->deskripsi = $this->form->penyakit->deskripsi;
+        $this->form->solusi = $this->form->penyakit->solusi;
+
+        $this->openModal($this->modalId);
+    }
+
+    public function cancel()
+    {
+        $this->closeModal($this->modalId);
+    }
+
+    public function delete($id): void
+    {
+        $this->form->penyakit = Penyakit::find($id);
+        $this->deleteConfirmation('Yakin untuk menghapus data penyakit ini ?');
+    }
+
+    #[On('deleteConfirmed')]
+    public function deleteConfirmed(): void
+    {
+        $this->notifySuccess("Berhasil menghapus penyakit: {$this->form->penyakit->kode} - {$this->form->penyakit->nama}");
+        $this->form->delete();
+    }
+
+    public function save(): void
+    {
+
+        if ($this->modalFormState === 'create') {
+
+            $this->form->store();
+            $this->notifySuccess('Berhasil menambahkan penyakit baru');
+
+        } elseif ($this->modalFormState === 'edit') {
+            $this->form->update();
+            $this->notifySuccess('Berhasil memperbarui penyakit');
+        }
+
+        $this->closeModal($this->modalId);
+
+    }
 
     public function render()
     {

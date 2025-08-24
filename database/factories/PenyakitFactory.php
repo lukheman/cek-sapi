@@ -16,7 +16,7 @@ class PenyakitFactory extends Factory
      */
     public function definition(): array
     {
-         return [
+        return [
             'kode' => $this->faker->unique()->regexify('P[0-9]{3}'),
             'nama' => $this->faker->words(2, true),
             'probabilitas' => $this->faker->randomFloat(2, 0, 1), // probabilitas antara 0 dan 1 dengan 2 desimal

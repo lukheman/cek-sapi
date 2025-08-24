@@ -2,26 +2,94 @@
 
 namespace App\Livewire;
 
-use Livewire\Component;
 use App\Models\User;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\On;
+use Livewire\Component;
+use App\Traits\WithConfirmation;
+use App\Traits\WithModal;
+use App\Traits\WithNotify;
+use Livewire\WithPagination;
+use App\Livewire\Forms\UserForm;
 
 class UserTable extends Component
 {
-    public $model = User::class;
-    public $columns = [
-        ['field' => 'name', 'label' => 'Nama Lengkap'],
-        ['field' => 'email', 'label' => 'Alamat Email'],
-        ['field' => 'created_at', 'label' => 'Tanggal Dibuat'],
-    ];
-    public $formFields = [
-        ['field' => 'name', 'label' => 'Nama Lengkap'],
-        ['field' => 'email', 'label' => 'Alamat Email']
-    ];
-    public $rules = [
-        'form.name' => 'required|string|max:255',
-        'form.email' => 'required|email|unique:users,email',
-    ];
+    use WithConfirmation;
+    use WithModal;
+    use WithNotify;
+    use WithPagination;
 
+    public string $modalId = 'modal-pengguna';
+    public string $search = '';
+    public string $modalFormState = 'create';
+
+    public UserForm $form;
+
+    public function cancel() { 
+        $this->closeModal($this->modalId);
+    }
+
+    #[Computed]
+    public function userList()
+    {
+        return User::query()
+            ->when($this->search, fn ($query) =>
+                $query->where('name', 'like', "%{$this->search}%")
+                      ->orWhere('email', 'like', "%{$this->search}%")
+            )
+            ->latest()
+            ->paginate(10);
+    }
+
+    public function showAddForm(): void
+    {
+        $this->form->reset();
+        $this->modalFormState = 'create';
+        $this->openModal($this->modalId);
+    }
+
+    public function showEditForm(int $id): void
+    {
+        $this->modalFormState = 'edit';
+        $this->form->user = User::findOrFail($id);
+
+        // isi form sesuai field
+        $this->form->name          = $this->form->user->name;
+        $this->form->email         = $this->form->user->email;
+        $this->form->tanggal_lahir = $this->form->user->tanggal_lahir;
+        $this->form->tempat_lahir  = $this->form->user->tempat_lahir;
+        $this->form->pendidikan    = $this->form->user->pendidikan;
+        $this->form->jabatan       = $this->form->user->jabatan;
+
+        $this->openModal($this->modalId);
+    }
+
+    public function delete(int $id): void
+    {
+        $this->form->user = User::findOrFail($id);
+        $this->deleteConfirmation('Yakin untuk menghapus data user ini?');
+    }
+
+    #[On('deleteConfirmed')]
+    public function deleteConfirmed(): void
+    {
+        $deletedName = $this->form->user->name;
+        $this->form->delete();
+        $this->notifySuccess("Berhasil menghapus user: {$deletedName}");
+    }
+
+    public function save(): void
+    {
+        if ($this->modalFormState === 'create') {
+            $this->form->store();
+            $this->notifySuccess('Berhasil menambahkan user baru');
+        } elseif ($this->modalFormState === 'edit') {
+            $this->form->update();
+            $this->notifySuccess('Berhasil memperbarui user');
+        }
+
+        $this->closeModal($this->modalId);
+    }
 
     public function render()
     {

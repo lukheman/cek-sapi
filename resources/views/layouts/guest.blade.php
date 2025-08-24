@@ -161,19 +161,22 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('landing')}}#penyakit">Penyakit</a>
+                    <a class="nav-link" href="{{ route('landing')}}" wire:navigate>Beranda</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('landing')}}#gejala">Gejala</a>
+                    <a class="nav-link" href="{{ route('landing')}}#penyakit">Informasi Penyakit</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('landing')}}#diagnosis">Diagnosis</a>
+                    <a class="nav-link" href="{{ route('landing.profile-pakar')}}" wire:navigate>Profile Pakar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('diagnosis')}}">Diagnosis</a>
                 </li>
                 <li class="nav-item">
                     @auth
                     <a class="nav-link" href="{{ route('dashboard')}}">Dashboard</a>
                     @else
-                    <a class="nav-link" href="{{ route('login')}}">Login</a>
+                    <a class="nav-link" href="{{ route('login')}}" wire:navigate>Login</a>
                     @endauth
                 </li>
             </ul>

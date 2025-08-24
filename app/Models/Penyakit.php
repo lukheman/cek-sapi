@@ -11,9 +11,11 @@ class Penyakit extends Model
     use HasFactory;
 
     protected $table = 'penyakit';
+
     protected $guarded = [];
 
-    public function gejala(): BelongsToMany {
+    public function gejala(): BelongsToMany
+    {
         return $this->belongsToMany(Gejala::class, 'basis_pengetahuan', 'id_penyakit', 'id_gejala')->withPivot('probabilitas');
     }
 }

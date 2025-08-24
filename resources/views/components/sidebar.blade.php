@@ -24,6 +24,24 @@
                 </x-nav-link>
 
                 <x-nav-link
+                    icon="bi-bag-plus"
+                    :href="route('penyakit.table')"
+                    :active="request()->routeIs('penyakit.table')"
+                >Penyakit</x-nav-link>
+
+                <x-nav-link
+                    icon="bi-clipboard-pulse"
+                    :href="route('gejala.table')"
+                    :active="request()->routeIs('gejala.table')"
+                >Gejala</x-nav-link>
+
+                <x-nav-link
+                    icon="bi-diagram-3"
+                    :href="route('basis-pengetahuan')"
+                    :active="request()->routeIs('basis-pengetahuan')"
+                >Rule</x-nav-link>
+
+                <x-nav-link
                     icon="bi-people"
                     :href="route('user-table')"
                     :active="request()->routeIs('user-table')"
@@ -31,29 +49,21 @@
                     Pengguna
                 </x-nav-link>
 
-                <x-nav-link
-                    icon="bi-bag-plus"
-                    :href="route('penyakit.table')"
-                    :active="request()->routeIs('penyakit.table')"
-                >Penyakit</x-nav-link>
-
-                <x-nav-link
-                    icon="bi-book"
-                    :href="route('gejala.table')"
-                    :active="request()->routeIs('gejala.table')"
-                >Gejala</x-nav-link>
-
-                <x-nav-link
-                    icon="bi-book"
-                    :href="route('basis-pengetahuan')"
-                    :active="request()->routeIs('basis-pengetahuan')"
-                >Basis Pengetahuan</x-nav-link>
-
+                <div class="border-bottom"></div>
                 <x-nav-link
                     icon="bi-person-circle"
                     :href="route('profile')"
                     :active="request()->routeIs('profile')"
                 >Profile </x-nav-link>
+
+                <x-nav-link
+                    icon="bi-box-arrow-right"
+                    :href="route('logout')"
+                >
+                    Logout
+                </x-nav-link>
+
+
 
           </ul>
         </nav>

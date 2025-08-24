@@ -29,9 +29,9 @@
                                 <button type="submit" class="btn btn-success btn-lg">Login</button>
                             </div>
                         </form>
-                        <p class="text-center mt-3 mb-0">
-                            Belum punya akun? <a href="/register" class="text-success">Daftar sekarang</a>
-                        </p>
+                        <!-- <p class="text-center mt-3 mb-0"> -->
+                        <!--     Belum punya akun? <a href="/register" class="text-success">Daftar sekarang</a> -->
+                        <!-- </p> -->
                     </div>
                 </div>
             </div>

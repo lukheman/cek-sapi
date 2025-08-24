@@ -14,13 +14,14 @@ use Livewire\WithPagination;
 
 class BasisPengetahuan extends Component
 {
-    use WithPagination;
     use WithModal;
     use WithNotify;
+    use WithPagination;
 
     public $modalId = 'modal-gejala-penyakit';
 
     public string $search = '';
+
     public $selectedPenyakit = null;
 
     public float $probabilitas = 0;
@@ -29,58 +30,82 @@ class BasisPengetahuan extends Component
     public $selectedIdGejala = null;
 
     #[Computed]
-    public function gejala() {
+    public function gejala()
+    {
         return Gejala::latest()->get();
     }
 
     #[Computed]
-    public function penyakit() {
+    public function penyakit()
+    {
         return Penyakit::query()
-            ->when($this->search, function($query) {
+            ->when($this->search, function ($query) {
                 $query->where('nama', 'like', '%'.$this->search.'%');
             })
             ->latest()
             ->paginate(10);
     }
 
-    public function showGejalaPenyakit($id) {
+    public function showGejalaPenyakit($id)
+    {
         $this->selectedPenyakit = Penyakit::with('gejala')->find($id);
         $this->openModal($this->modalId);
     }
 
-    public function cancel() {
+    public function cancel()
+    {
         $this->reset();
         $this->closeModal($this->modalId);
     }
 
-    public function saveGejalaPenyakit() {
+    public function rules(): array
+    {
+        return [
+            'selectedIdGejala' => 'required|exists:gejala,id',
+            'probabilitas' => 'required|numeric|min:0|max:1',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'selectedIdGejala.required' => 'Gejala wajib dipilih.',
+            'selectedIdGejala.exists' => 'Gejala yang dipilih tidak valid.',
+
+            'probabilitas.required' => 'Probabilitas wajib diisi.',
+            'probabilitas.numeric' => 'Probabilitas harus berupa angka.',
+            'probabilitas.min' => 'Probabilitas minimal adalah 0.',
+            'probabilitas.max' => 'Probabilitas maksimal adalah 1.',
+        ];
+    }
+
+    public function saveGejalaPenyakit()
+    {
         // selain menambahakan gejala gejala, juga memperbarui gejaa yang sudah ada
- $this->validate([
-        'selectedIdGejala' => 'required|exists:gejala,id',
-        'probabilitas' => 'required|numeric|min:0|max:1'
-    ]);
+        $this->validate();
 
         $this->selectedPenyakit->gejala()->syncWithoutDetaching([
             $this->selectedIdGejala => [
-                'probabilitas' => $this->probabilitas
-            ]
+                'probabilitas' => $this->probabilitas,
+            ],
         ]);
 
         $this->notifySuccess('Berhasil memperbarui gejala ke penyakit');
 
     }
 
-    public function deleteGejalaPenyakit($id) {
+    public function deleteGejalaPenyakit($id)
+    {
         $this->selectedIdGejala = $id;
         $this->dispatch('deleteConfirmation', message: 'Apakah anda yakin untuk menghapus gejala penyakit ini? ');
     }
 
     #[On('deleteConfirmed')]
-    public function deleteConfirmed() {
+    public function deleteConfirmed()
+    {
         $this->selectedPenyakit->gejala()->detach($this->selectedIdGejala);
         $this->notifySuccess('Berhasil menghapus gejala dari penyakit');
     }
-
 
     public function render()
     {
