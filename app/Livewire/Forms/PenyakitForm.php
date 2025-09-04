@@ -18,7 +18,6 @@ class PenyakitForm extends Form
 
     public $solusi = '';
 
-    public $probabilitas = '';
 
     protected function rules(): array
     {
@@ -32,7 +31,6 @@ class PenyakitForm extends Form
             'nama' => 'required|string|max:255',
             'deskripsi' => 'required|string|min:5',
             'solusi' => 'required|string|min:5',
-            'probabilitas' => 'required|numeric|min:0|max:1',
         ];
     }
 
@@ -56,10 +54,6 @@ class PenyakitForm extends Form
             'solusi.string' => 'Solusi penyakit harus berupa teks.',
             'solusi.min' => 'Solusi penyakit harus memuat minimal 5 karakter.',
 
-            'probabilitas.required' => 'Probabilitas penyakit wajib diisi.',
-            'probabilitas.numeric' => 'Probabilitas penyakit harus berupa angka.',
-            'probabilitas.min' => 'Probabilitas minimal adalah 0.',
-            'probabilitas.max' => 'Probabilitas maksimal adalah 1.',
         ];
     }
 

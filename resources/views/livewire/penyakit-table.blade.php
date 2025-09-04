@@ -23,12 +23,6 @@
     </div>
 
     <div class="form-group">
-        <label for="probabilitas">Probabilitas</label>
-        <input wire:model="form.probabilitas" type="number" step="0.01" min="0" max="1" class="form-control" id="probabilitas" placeholder="Nilai probabilitas (0 - 1)">
-        @error('form.probabilitas') <small class="text-danger">{{ $message }}</small> @enderror
-    </div>
-
-    <div class="form-group">
         <label for="deskripsi">Deskripsi</label>
         <textarea wire:model="form.deskripsi" class="form-control" id="deskripsi" placeholder="Deskripsi Penyakit"></textarea>
         @error('form.deskripsi') <small class="text-danger">{{ $message }}</small> @enderror
@@ -66,7 +60,6 @@
                 <tr>
                     <td>Kode Penyakit</td>
                     <td>Nama Penyakit</td>
-                    <td>Nilai Probabilitas</td>
                     <td class="text-end">Aksi</td>
                 </tr>
             </thead>
@@ -75,7 +68,6 @@
                     <tr>
                     <td>{{ $penyakit->kode }}</td>
                     <td>{{ $penyakit->nama }}</td>
-                    <td>{{ $penyakit->probabilitas }}</td>
                         <td class="text-end">
                             <button wire:click="showEditForm({{ $penyakit->id }})" class="btn btn-primary btn-sm">Edit</button>
                             <button wire:click="delete({{ $penyakit->id }})" class="btn btn-danger btn-sm">Hapus</button>
