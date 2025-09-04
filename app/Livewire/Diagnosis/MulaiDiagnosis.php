@@ -15,7 +15,7 @@ class MulaiDiagnosis extends Component
 
     public $daftarGejalaKanan;
 
-    public $gejalaDipilih = [1, 4, 6, 7];
+    public $gejalaDipilih = [];
 
     public function mount()
     {
@@ -32,36 +32,9 @@ class MulaiDiagnosis extends Component
         $penyakitList = Penyakit::with('gejala')->get();
         $allGejala = Gejala::pluck('kode')->toArray();
 
-        $konfigurasi = [];
+        $NB = new NaiveBayes($this->gejalaDipilih);
 
-        foreach ($penyakitList as $penyakit) {
-
-            $gejalaDiagnosa = []; // ['G1' => 1, 'G2' => 0]
-
-            foreach ($this->gejalaDipilih as $id_gejala) {
-
-                $hasGejala = $penyakit->gejala->contains('id', $id_gejala);
-
-                // apakah penyakit ini mempunyai gejala dengan $id_gejala
-                if ($hasGejala) {
-                    $gejalaDiagnosa[$id_gejala] = 1;
-
-                } else {
-
-                    $gejalaDiagnosa[$id_gejala] = 0;
-                }
-
-            }
-
-            $konfigurasi[$penyakit->kode] = $gejalaDiagnosa;
-        }
-
-        $NB = new NaiveBayes($konfigurasi);
-        $hasil_diagnosis = $NB->diagnosis();
-
-        $penyakit = Penyakit::where('kode', array_key_first($hasil_diagnosis))->first();
-
-        $penyakit->persentase = round($hasil_diagnosis[$penyakit->kode] * 100, 2);
+        $penyakit = $NB->diagnosis();
 
         $this->dispatch('showHasilDiagnosis', $penyakit); // untuk komponent Flow
 
