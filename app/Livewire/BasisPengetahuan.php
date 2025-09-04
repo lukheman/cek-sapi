@@ -24,8 +24,6 @@ class BasisPengetahuan extends Component
 
     public $selectedPenyakit = null;
 
-    public float $probabilitas = 0;
-
     #[Rule('required')]
     public $selectedIdGejala = null;
 
@@ -62,7 +60,6 @@ class BasisPengetahuan extends Component
     {
         return [
             'selectedIdGejala' => 'required|exists:gejala,id',
-            'probabilitas' => 'required|numeric|min:0|max:1',
         ];
     }
 
@@ -72,10 +69,6 @@ class BasisPengetahuan extends Component
             'selectedIdGejala.required' => 'Gejala wajib dipilih.',
             'selectedIdGejala.exists' => 'Gejala yang dipilih tidak valid.',
 
-            'probabilitas.required' => 'Probabilitas wajib diisi.',
-            'probabilitas.numeric' => 'Probabilitas harus berupa angka.',
-            'probabilitas.min' => 'Probabilitas minimal adalah 0.',
-            'probabilitas.max' => 'Probabilitas maksimal adalah 1.',
         ];
     }
 
@@ -84,11 +77,7 @@ class BasisPengetahuan extends Component
         // selain menambahakan gejala gejala, juga memperbarui gejaa yang sudah ada
         $this->validate();
 
-        $this->selectedPenyakit->gejala()->syncWithoutDetaching([
-            $this->selectedIdGejala => [
-                'probabilitas' => $this->probabilitas,
-            ],
-        ]);
+        $this->selectedPenyakit->gejala()->syncWithoutDetaching([$this->selectedIdGejala]);
 
         $this->notifySuccess('Berhasil memperbarui gejala ke penyakit');
 

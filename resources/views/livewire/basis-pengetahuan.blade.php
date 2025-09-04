@@ -22,7 +22,6 @@
                             <tr>
                                 <th scope="col">Kode Gejala</th>
                                 <th scope="col">Nama Gejala</th>
-                                <th scope="col">Probabilitas</th>
                                 <th scope="col" class="text-end">Aksi</th>
                             </tr>
                         </thead>
@@ -35,7 +34,6 @@
                             <tr>
                                 <td>{{ $gejala->kode}}</td>
                                     <td>{{ $gejala->nama}}</td>
-                                    <td>{{ $gejala->pivot->probabilitas ?? '-'}}</td>
                                     <td class="text-end">
                                     <button class="btn btn-danger btn-sm" wire:click="deleteGejalaPenyakit({{ $gejala->id }})">Hapus Gejala</button>
                                         </td>
@@ -64,13 +62,6 @@
                                             @endforeach
 
                                         </select>
-
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="probabilitas">Probabilitas</label>
-                                        <input type="number" step="0.1" min="0" max="1" class="form-control" wire:model="probabilitas">
-                @error('probabilitas') <small class="text-danger">{{ $message }}</small> @enderror
 
                                     </div>
 
