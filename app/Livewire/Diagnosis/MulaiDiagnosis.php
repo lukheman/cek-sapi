@@ -29,9 +29,6 @@ class MulaiDiagnosis extends Component
     public function diagnosis()
     {
 
-        $penyakitList = Penyakit::with('gejala')->get();
-        $allGejala = Gejala::pluck('kode')->toArray();
-
         $NB = new NaiveBayes($this->gejalaDipilih);
 
         $penyakit = $NB->diagnosis();
