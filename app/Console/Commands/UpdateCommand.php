@@ -69,6 +69,17 @@ class UpdateCommand extends Command
             '--seed' => true,
         ]);
 
+        // Tampilkan informasi
+        $this->newLine();
+        $this->info("📌 {$appName}");
+        $this->line($author);
+        // $this->line($license);
+        $this->newLine();
+        $this->line($contactWA);
+        $this->line($contactYT);
+        $this->line($contactIG);
+        $this->newLine();
+
         $this->info('✅ Aplikasi berhasil diperbarui ke versi terbaru.');
     }
 }
