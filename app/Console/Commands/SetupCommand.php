@@ -38,6 +38,8 @@ class SetupCommand extends Command
         // 2. Generate APP_KEY
         $this->call('key:generate', ['--force' => true]);
 
+        $this->call('migrate');
+
         // 3. Migrasi database fresh + seed
         $this->call('migrate:fresh', ['--seed' => true]);
 
