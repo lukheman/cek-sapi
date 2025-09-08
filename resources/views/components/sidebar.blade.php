@@ -17,8 +17,8 @@
 
                 <x-nav-link
                     icon="bi-house"
-                    :href="route('index')"
-                    :active="request()->routeIs('index')"
+                    :href="route('dashboard')"
+                    :active="request()->routeIs('dashboard')"
                 >
                     Dashboard
                 </x-nav-link>
