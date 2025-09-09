@@ -29,8 +29,7 @@ class RiwayatDiagnosisTable extends Component
     public function riwayatList()
     {
         return RiwayatDiagnosis::query()->with('penyakit')
-            ->when($this->search, fn ($query) =>
-                $query->where('nama_pasien', 'like', "%{$this->search}%")
+            ->when($this->search, fn ($query) => $query->where('nama_pasien', 'like', "%{$this->search}%")
             )
             ->latest()
             ->paginate(10);

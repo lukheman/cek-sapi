@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class RiwayatDiagnosis extends Model
 {
     protected $table = 'riwayat_diagnosis';
+
     protected $guarded = [];
 
     public function penyakit()
@@ -16,6 +17,6 @@ class RiwayatDiagnosis extends Model
 
     public function getPersentaseAttribute()
     {
-        return round($this->probabilitas * 100, 2) . '%';
+        return round($this->probabilitas * 100, 2).'%';
     }
 }

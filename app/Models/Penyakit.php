@@ -19,8 +19,8 @@ class Penyakit extends Model
         return $this->belongsToMany(Gejala::class, 'basis_pengetahuan', 'id_penyakit', 'id_gejala');
     }
 
-    public function riwayatDiagnosis() {
+    public function riwayatDiagnosis()
+    {
         return $this->hasMany(RiwayatDiagnosis::class, 'id_penyakit');
     }
-
 }

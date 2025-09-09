@@ -41,7 +41,8 @@ class MulaiDiagnosis extends Component
 
     }
 
-    public function saveRiwayatDiagnosis(Penyakit $penyakit): void {
+    public function saveRiwayatDiagnosis(Penyakit $penyakit): void
+    {
 
         RiwayatDiagnosis::create([
             'nama_pasien' => $this->namaPasien,
