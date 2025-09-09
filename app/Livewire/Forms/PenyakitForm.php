@@ -18,7 +18,6 @@ class PenyakitForm extends Form
 
     public $solusi = '';
 
-
     protected function rules(): array
     {
         return [

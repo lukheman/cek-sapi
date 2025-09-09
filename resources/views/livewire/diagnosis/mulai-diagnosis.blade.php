@@ -8,38 +8,39 @@
                 <form wire:submit.prevent="diagnosis">
                     <div class="mb-3">
                         <label for="name" class="form-label fw-bold">Masukan Nama Anda</label>
-                        <input type="text" id="name" wire:model="name" class="form-control" placeholder="Nama Anda" required>
+                        <input type="text" id="name" wire:model="namaPasien" class="form-control" placeholder="Nama Anda" required {{ $daftarGejalaKiri->isEmpty() ? 'disabled' : '' }}>
                     </div>
-                    <div class="mb-4">
-                        <p class="text-muted">Pilih gejala penyakit sesuai dengan yang dialami hewan ternak anda</p>
+<div class="mb-4">
+    <p class="text-muted">Pilih gejala penyakit sesuai dengan yang dialami hewan ternak anda</p>
 
-                        <div class="row">
-                            <div class="col-6">
-                        @foreach ($daftarGejalaKiri as $gejala)
-
-                        <div class="form-check">
-                            <input type="checkbox" id="gejala{{$gejala->id}}" wire:model="gejalaDipilih" value="{{ $gejala->id }}" class="form-check-input">
-                            <label for="gejala{{ $gejala->id }}" class="form-check-label">{{ $gejala->nama }}</label>
-                        </div>
-
-                        @endforeach
-                            </div>
-
-                            <div class="col-6">
-                        @foreach ($daftarGejalaKanan as $gejala)
-
-                        <div class="form-check">
-                            <input type="checkbox" id="gejala{{ $gejala->id}}" wire:model="gejalaDipilih" value="{{ $gejala->id }}" class="form-check-input">
-                            <label for="gejala{{ $gejala->id }}" class="form-check-label">{{ $gejala->nama }}</label>
-                        </div>
-
-                        @endforeach
-                            </div>
-                        </div>
-
+    @if($daftarGejalaKiri->isEmpty())
+        <div class="alert alert-warning text-center">
+            Belum ada gejala yang tersedia.
+        </div>
+    @else
+        <div class="row">
+            <div class="col-6">
+                @foreach ($daftarGejalaKiri as $gejala)
+                    <div class="form-check">
+                        <input type="checkbox" id="gejala{{ $gejala->id }}" wire:model="gejalaDipilih" value="{{ $gejala->id }}" class="form-check-input">
+                        <label for="gejala{{ $gejala->id }}" class="form-check-label">{{ $gejala->nama }}</label>
                     </div>
+                @endforeach
+            </div>
+
+            <div class="col-6">
+                @foreach ($daftarGejalaKanan as $gejala)
+                    <div class="form-check">
+                        <input type="checkbox" id="gejala{{ $gejala->id }}" wire:model="gejalaDipilih" value="{{ $gejala->id }}" class="form-check-input">
+                        <label for="gejala{{ $gejala->id }}" class="form-check-label">{{ $gejala->nama }}</label>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    @endif
+</div>
                     <div class="text-end">
-                        <button type="submit" class="btn btn-success">
+                        <button type="submit" class="btn btn-success" {{ $daftarGejalaKiri->isEmpty() ? 'disabled' : '' }}>
                             Konsultasi
                         </button>
                     </div>

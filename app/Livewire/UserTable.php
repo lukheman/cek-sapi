@@ -2,15 +2,15 @@
 
 namespace App\Livewire;
 
+use App\Livewire\Forms\UserForm;
 use App\Models\User;
-use Livewire\Attributes\Computed;
-use Livewire\Attributes\On;
-use Livewire\Component;
 use App\Traits\WithConfirmation;
 use App\Traits\WithModal;
 use App\Traits\WithNotify;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\On;
+use Livewire\Component;
 use Livewire\WithPagination;
-use App\Livewire\Forms\UserForm;
 
 class UserTable extends Component
 {
@@ -20,12 +20,15 @@ class UserTable extends Component
     use WithPagination;
 
     public string $modalId = 'modal-pengguna';
+
     public string $search = '';
+
     public string $modalFormState = 'create';
 
     public UserForm $form;
 
-    public function cancel() { 
+    public function cancel()
+    {
         $this->closeModal($this->modalId);
     }
 
@@ -33,9 +36,8 @@ class UserTable extends Component
     public function userList()
     {
         return User::query()
-            ->when($this->search, fn ($query) =>
-                $query->where('name', 'like', "%{$this->search}%")
-                      ->orWhere('email', 'like', "%{$this->search}%")
+            ->when($this->search, fn ($query) => $query->where('name', 'like', "%{$this->search}%")
+                ->orWhere('email', 'like', "%{$this->search}%")
             )
             ->latest()
             ->paginate(10);
@@ -54,12 +56,12 @@ class UserTable extends Component
         $this->form->user = User::findOrFail($id);
 
         // isi form sesuai field
-        $this->form->name          = $this->form->user->name;
-        $this->form->email         = $this->form->user->email;
+        $this->form->name = $this->form->user->name;
+        $this->form->email = $this->form->user->email;
         $this->form->tanggal_lahir = $this->form->user->tanggal_lahir;
-        $this->form->tempat_lahir  = $this->form->user->tempat_lahir;
-        $this->form->pendidikan    = $this->form->user->pendidikan;
-        $this->form->jabatan       = $this->form->user->jabatan;
+        $this->form->tempat_lahir = $this->form->user->tempat_lahir;
+        $this->form->pendidikan = $this->form->user->pendidikan;
+        $this->form->jabatan = $this->form->user->jabatan;
 
         $this->openModal($this->modalId);
     }

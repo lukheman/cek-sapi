@@ -5,6 +5,7 @@ namespace App\Livewire\Diagnosis;
 use App\Helpers\NaiveBayes;
 use App\Models\Gejala;
 use App\Models\Penyakit;
+use App\Models\RiwayatDiagnosis;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
@@ -16,6 +17,8 @@ class MulaiDiagnosis extends Component
     public $daftarGejalaKanan;
 
     public $gejalaDipilih = [];
+
+    public string $namaPasien = '';
 
     public function mount()
     {
@@ -33,7 +36,18 @@ class MulaiDiagnosis extends Component
 
         $penyakit = $NB->diagnosis();
 
+        $this->saveRiwayatDiagnosis($penyakit);
         $this->dispatch('showHasilDiagnosis', $penyakit); // untuk komponent Flow
+
+    }
+
+    public function saveRiwayatDiagnosis(Penyakit $penyakit): void {
+
+        RiwayatDiagnosis::create([
+            'nama_pasien' => $this->namaPasien,
+            'id_penyakit' => $penyakit->id,
+            'probabilitas' => $penyakit->probabilitas,
+        ]);
 
     }
 

@@ -18,8 +18,8 @@ class NaiveBayes
 
     /**
      * @var array<int,float>
-     * Menyimpan hasil probabilitas penyakit berdasarkan gejala.
-     * Contoh: [1 => 0.85]
+     *                       Menyimpan hasil probabilitas penyakit berdasarkan gejala.
+     *                       Contoh: [1 => 0.85]
      */
     public array $set_probabilitas_penyakit = [];
 
@@ -34,8 +34,8 @@ class NaiveBayes
 
     /**
      * @var array<int,float>
-     * Menyimpan probabilitas setiap penyakit.
-     * Contoh: [1 => 0.131, 2 => 0.121]
+     *                       Menyimpan probabilitas setiap penyakit.
+     *                       Contoh: [1 => 0.131, 2 => 0.121]
      */
     private array $probabilitasPenyakit = [];
 

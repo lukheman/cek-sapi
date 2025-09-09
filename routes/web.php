@@ -14,3 +14,4 @@ Route::get('/dashboard', \App\Livewire\Dashboard::class)->name('dashboard')->mid
 Route::get('/login', \App\Livewire\Login::class)->name('login');
 Route::get('/logout', App\Http\Controllers\LogoutController::class)->name('logout');
 Route::get('/basis-pengetahuan', \App\Livewire\BasisPengetahuan::class)->name('basis-pengetahuan')->middleware('auth');
+Route::get('/riwayat-diagnosis', \App\Livewire\RiwayatDiagnosisTable::class)->name('riwayat-diagnosis')->middleware('auth');

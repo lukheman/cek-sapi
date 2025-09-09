@@ -49,6 +49,14 @@
                     Pengguna
                 </x-nav-link>
 
+                <x-nav-link
+                    icon="bi-journal-text"
+                    :href="route('riwayat-diagnosis')"
+                    :active="request()->routeIs('riwayat-diagnosis')"
+                >
+                    Riwayat Diagnosis
+                </x-nav-link>
+
                 <div class="border-bottom"></div>
                 <x-nav-link
                     icon="bi-person-circle"

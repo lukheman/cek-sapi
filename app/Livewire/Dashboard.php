@@ -2,10 +2,9 @@
 
 namespace App\Livewire;
 
+use App\Models\BasisPengetahuan;
 use App\Models\Gejala;
 use App\Models\Penyakit;
-use App\Models\BasisPengetahuan;
-use App\Models\User;
 use Livewire\Component;
 
 class Dashboard extends Component
@@ -20,7 +19,7 @@ class Dashboard extends Component
     {
         $this->jumlah_penyakit = Penyakit::count();
         $this->jumlah_gejala = Gejala::count();
-        $this->jumlah_basis_pengetahuan= BasisPengetahuan::count();
+        $this->jumlah_basis_pengetahuan = BasisPengetahuan::count();
     }
 
     public function render()
