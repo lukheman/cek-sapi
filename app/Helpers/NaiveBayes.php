@@ -77,6 +77,10 @@ class NaiveBayes
                 // Rumus probabilitas gejala
                 $probabilitasGejala = round(($nc + $this->m * $this->p) / (1 + $this->m), 4);
 
+                if($nc === 1) {
+                    $probabilitasGejala = round($probabilitasGejala, 1);
+                }
+
                 $himpunanProbabilitasGejalaPenyakit[] = $probabilitasGejala;
             }
 
