@@ -39,7 +39,6 @@ class UserTable extends Component
             ->when($this->search, fn ($query) => $query->where('name', 'like', "%{$this->search}%")
                 ->orWhere('email', 'like', "%{$this->search}%")
             )
-            ->latest()
             ->paginate(10);
     }
 

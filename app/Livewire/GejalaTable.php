@@ -39,7 +39,6 @@ class GejalaTable extends Component
             ->when($this->search, function ($query) {
                 $query->where('nama', 'like', '%'.$this->search.'%');
             })
-            ->latest()
             ->paginate(10);
     }
 
