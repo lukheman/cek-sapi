@@ -23,7 +23,7 @@
                 @foreach ($daftarGejalaKiri as $gejala)
                     <div class="form-check">
                         <input type="checkbox" id="gejala{{ $gejala->id }}" wire:model="gejalaDipilih" value="{{ $gejala->id }}" class="form-check-input">
-                        <label for="gejala{{ $gejala->id }}" class="form-check-label">{{ $gejala->nama }}</label>
+                        <label for="gejala{{ $gejala->id }}" class="form-check-label"> {{ $gejala->nomor }}. {{ $gejala->nama }}</label>
                     </div>
                 @endforeach
             </div>
@@ -32,7 +32,7 @@
                 @foreach ($daftarGejalaKanan as $gejala)
                     <div class="form-check">
                         <input type="checkbox" id="gejala{{ $gejala->id }}" wire:model="gejalaDipilih" value="{{ $gejala->id }}" class="form-check-input">
-                        <label for="gejala{{ $gejala->id }}" class="form-check-label">{{ $gejala->nama }}</label>
+                        <label for="gejala{{ $gejala->id }}" class="form-check-label"> {{ $gejala->nomor }}. {{ $gejala->nama }}</label>
                     </div>
                 @endforeach
             </div>

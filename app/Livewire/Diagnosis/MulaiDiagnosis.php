@@ -23,6 +23,12 @@ class MulaiDiagnosis extends Component
     public function mount()
     {
         $gejala = Gejala::all();
+
+        $gejala = Gejala::all()->map(function ($item, $index) {
+            $item->nomor = $index + 1; // index mulai dari 0, jadi ditambah 1
+            return $item;
+        });
+
         $half = (int) ceil($gejala->count() / 2);
 
         $this->daftarGejalaKiri = $gejala->slice(0, $half);
