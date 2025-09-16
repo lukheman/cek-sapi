@@ -13,7 +13,7 @@ class Landing extends Component
 
     public function mount()
     {
-        $this->penyakitList = Penyakit::latest()->get();
+        $this->penyakitList = Penyakit::all();
     }
 
     public function render()

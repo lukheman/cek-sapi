@@ -30,7 +30,7 @@ class BasisPengetahuan extends Component
     #[Computed]
     public function gejala()
     {
-        return Gejala::latest()->get();
+        return Gejala::all();
     }
 
     #[Computed]
