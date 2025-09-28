@@ -8,7 +8,7 @@
                     <td>Tanggal Diagnosis</td>
                     <td>Nama Pasien</td>
                     <td>Penyakit</td>
-                    <td>Probabilitas</td>
+                    <td>Persentase</td>
                     <td class="text-end">Aksi</td>
                 </tr>
             </thead>

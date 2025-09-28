@@ -9,9 +9,11 @@ use App\Traits\WithNotify;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Rule;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+#[Title('Rule')]
 class BasisPengetahuan extends Component
 {
     use WithModal;

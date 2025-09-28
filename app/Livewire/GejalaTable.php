@@ -9,9 +9,11 @@ use App\Traits\WithModal;
 use App\Traits\WithNotify;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+#[Title('Gejala')]
 class GejalaTable extends Component
 {
     use WithConfirmation;

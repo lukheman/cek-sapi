@@ -9,9 +9,11 @@ use App\Traits\WithModal;
 use App\Traits\WithNotify;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+#[Title('Riwayat Diagnosis')]
 class RiwayatDiagnosisTable extends Component
 {
     use WithConfirmation;
