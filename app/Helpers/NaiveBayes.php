@@ -108,7 +108,8 @@ class NaiveBayes
 
         $penyakit = Penyakit::query()->find($idPenyakitTerbesar);
         $penyakit->probabilitas = $maxValue;
-        $penyakit->persentase = $maxValue * 100;
+
+        $penyakit->persentase = $maxValue * 10000;
 
         return $penyakit;
     }

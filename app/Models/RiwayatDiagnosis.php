@@ -17,6 +17,6 @@ class RiwayatDiagnosis extends Model
 
     public function getPersentaseAttribute()
     {
-        return round($this->probabilitas * 100, 2).'%';
+        return round($this->probabilitas * 10000, 2).'%';
     }
 }
