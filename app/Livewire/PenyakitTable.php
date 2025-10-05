@@ -11,6 +11,7 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
 #[Title('Penyakit')]
@@ -20,6 +21,7 @@ class PenyakitTable extends Component
     use WithModal;
     use WithNotify;
     use WithPagination;
+    use WithFileUploads;
 
     public PenyakitForm $form;
 
@@ -59,6 +61,7 @@ class PenyakitTable extends Component
         $this->form->probabilitas = $this->form->penyakit->probabilitas;
         $this->form->deskripsi = $this->form->penyakit->deskripsi;
         $this->form->solusi = $this->form->penyakit->solusi;
+        $this->form->photo = $this->form->penyakit->photo;
 
         $this->openModal($this->modalId);
     }

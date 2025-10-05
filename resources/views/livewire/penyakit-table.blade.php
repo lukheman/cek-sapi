@@ -9,6 +9,14 @@
       </div>
 
 <div class="modal-body">
+ @if ($form->photo)
+        <div class="text-center mb-3">
+            <img src="{{ is_string($form->photo) ? asset('storage/' . $form->photo) : $form->photo->temporaryUrl() }}"
+                 alt="Preview Gambar Penyakit"
+                 class="img-fluid rounded"
+                 style="max-height: 200px; object-fit: cover;">
+        </div>
+    @endif
 
     <div class="form-group">
         <label for="kode">Kode Penyakit</label>
@@ -21,6 +29,15 @@
         <input wire:model="form.nama" type="text" class="form-control" id="nama" placeholder="Nama Penyakit">
         @error('form.nama') <small class="text-danger">{{ $message }}</small> @enderror
     </div>
+
+    <div class="form-group">
+
+        <label for="photo-penyakit">Gambar Penyakit</label>
+                        <input wire:model="form.photo" type="file" id="photo-penyakit" class="form-control" accept="image/*">
+                        @error('form.photo')
+                        <small class="d-block mt-1 text-danger">{{ $message }}</small>
+                        @enderror
+</div>
 
     <div class="form-group">
         <label for="deskripsi">Deskripsi</label>

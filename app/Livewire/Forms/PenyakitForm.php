@@ -5,6 +5,7 @@ namespace App\Livewire\Forms;
 use App\Models\Penyakit;
 use Illuminate\Validation\Rule;
 use Livewire\Form;
+use Illuminate\Support\Facades\Storage;
 
 class PenyakitForm extends Form
 {
@@ -18,6 +19,8 @@ class PenyakitForm extends Form
 
     public $solusi = '';
 
+    public $photo;
+
     protected function rules(): array
     {
         return [
@@ -29,6 +32,7 @@ class PenyakitForm extends Form
             ],
             'nama' => 'required|string|max:255',
             'deskripsi' => 'required|string|min:5',
+            'photo' => ['nullable', 'image', 'max:2048'], // Max 2MB
             'solusi' => 'required|string|min:5',
         ];
     }
@@ -45,6 +49,9 @@ class PenyakitForm extends Form
             'nama.string' => 'Nama penyakit harus berupa teks.',
             'nama.max' => 'Nama penyakit tidak boleh lebih dari 255 karakter.',
 
+            'photo.image' => 'File yang diunggah harus berupa gambar.',
+            'photo.max' => 'Ukuran foto maksimal 2MB.',
+
             'deskripsi.required' => 'Deskripsi penyakit wajib diisi.',
             'deskripsi.string' => 'Deskripsi penyakit harus berupa teks.',
             'deskripsi.min' => 'Deskripsi penyakit harus memuat minimal 5 karakter.',
@@ -59,7 +66,15 @@ class PenyakitForm extends Form
     public function store()
     {
 
-        Penyakit::create($this->validate());
+        $penyakit = Penyakit::create($this->validate());
+
+        if ($this->photo) {
+            // Store new photo
+            $path = $this->photo->store('photos', 'public');
+            $penyakit->update([
+                'photo' => $path
+            ]);
+        }
 
         $this->reset();
     }
@@ -67,7 +82,30 @@ class PenyakitForm extends Form
     public function update()
     {
 
-        $this->penyakit->update($this->validate());
+        $this->validate();
+
+        $this->penyakit->update([
+
+            'kode' => $this->kode,
+            'nama' => $this->nama,
+            'deskripsi' => $this->deskripsi,
+            'solusi' => $this->solusi,
+
+        ]);
+
+        if ($this->photo) {
+            // Delete old photo if exists
+            if ($this->penyakit->photo) {
+                Storage::disk('public')->delete($this->penyakit->photo);
+            }
+            // Store new photo
+            $path = $this->photo->store('photos', 'public');
+            $this->penyakit->update([
+                'photo' => $path
+            ]);
+
+        }
+
         $this->reset();
     }
 
