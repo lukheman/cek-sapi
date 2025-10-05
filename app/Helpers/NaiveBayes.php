@@ -48,7 +48,7 @@ class NaiveBayes
     {
         $this->jumlah_gejala = Gejala::query()->count();
         $this->idGejalaDipilih = $idGejalaDipilih;
-        $this->p = 1 / Penyakit::count();
+        $this->p = round(1 / Penyakit::count(), 2);
         $this->m = Gejala::count();
     }
 
@@ -75,16 +75,14 @@ class NaiveBayes
                 $nc = $penyakit->gejala->contains($idGejala) ? 1 : 0;
 
                 // Rumus probabilitas gejala
-                $probabilitasGejala = round(($nc + $this->m * $this->p) / (1 + $this->m), 4);
-
-                $probabilitasGejala = round($probabilitasGejala, 1);
+                $probabilitasGejala = round(($nc + $this->m * $this->p) / (1 + $this->m), 5);
 
                 $himpunanProbabilitasGejalaPenyakit[] = $probabilitasGejala;
             }
 
+
             // Probabilitas penyakit = hasil kali semua probabilitas gejala
-            $this->probabilitasPenyakit[$penyakit->id] =
-                round(array_product($himpunanProbabilitasGejalaPenyakit), 6);
+            $this->probabilitasPenyakit[$penyakit->id] = round($this->p * array_product($himpunanProbabilitasGejalaPenyakit), 10);
         }
 
         return $this->probabilitasTerbesarPenyakit();
