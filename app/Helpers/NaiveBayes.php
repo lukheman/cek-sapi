@@ -77,9 +77,7 @@ class NaiveBayes
                 // Rumus probabilitas gejala
                 $probabilitasGejala = round(($nc + $this->m * $this->p) / (1 + $this->m), 4);
 
-                if($nc === 1) {
-                    $probabilitasGejala = round($probabilitasGejala, 1);
-                }
+                $probabilitasGejala = round($probabilitasGejala, 1);
 
                 $himpunanProbabilitasGejalaPenyakit[] = $probabilitasGejala;
             }
@@ -109,7 +107,7 @@ class NaiveBayes
         $penyakit = Penyakit::query()->find($idPenyakitTerbesar);
         $penyakit->probabilitas = $maxValue;
 
-        $penyakit->persentase = $maxValue * 10000;
+        $penyakit->persentase = $maxValue * 100000;
 
         return $penyakit;
     }
