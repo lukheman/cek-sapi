@@ -42,21 +42,10 @@ class MulaiDiagnosis extends Component
 
         $penyakit = $NB->diagnosis();
 
-        $this->saveRiwayatDiagnosis($penyakit);
         $this->dispatch('showHasilDiagnosis', $penyakit); // untuk komponent Flow
 
     }
 
-    public function saveRiwayatDiagnosis(Penyakit $penyakit): void
-    {
-
-        RiwayatDiagnosis::create([
-            'nama_pasien' => $this->namaPasien,
-            'id_penyakit' => $penyakit->id,
-            'probabilitas' => $penyakit->probabilitas,
-        ]);
-
-    }
 
     public function render()
     {

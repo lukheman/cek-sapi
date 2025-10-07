@@ -8,9 +8,9 @@
 
                 @if(!empty($penyakit['photo']))
                     <div class="text-center mb-4">
-                        <img src="{{ asset('storage/' . $penyakit['photo']) }}" 
-                             alt="{{ $penyakit['nama'] }}" 
-                             class="img-fluid rounded" 
+                        <img src="{{ asset('storage/' . $penyakit['photo']) }}"
+                             alt="{{ $penyakit['nama'] }}"
+                             class="img-fluid rounded"
                              style="max-height: 200px; object-fit: cover;">
                     </div>
                 @endif
@@ -39,6 +39,14 @@
                 <div class="mt-4">
                     <h5 class="fw-bold text-dark">Solusi Penanganan :</h5>
                     <p class="text-muted">{{ $penyakit['solusi'] ?? 'Belum ada solusi tersedia' }}</p>
+                </div>
+
+                <div class="text-end">
+
+<button class="btn btn-primary"
+        style="background-color: #212529; border: none; outline: none; box-shadow: none;">
+  Ulangi Diagnosis
+</button>
                 </div>
             </div>
         </div>

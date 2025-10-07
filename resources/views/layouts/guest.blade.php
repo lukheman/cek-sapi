@@ -167,10 +167,11 @@
                     <a class="nav-link" href="{{ route('landing')}}#penyakit">Informasi Penyakit</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('landing.profile-pakar')}}" wire:navigate>Profile Pakar</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="{{ route('diagnosis')}}">Diagnosis</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('landing.profile-pakar')}}" wire:navigate>Profile Pakar</a>
                 </li>
                 <li class="nav-item">
                     @auth

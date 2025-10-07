@@ -24,6 +24,7 @@ class Profile extends Component
 
         $this->form->user = $user;
         $this->form->name = $user->name;
+        $this->form->tempat_lahir = $user->tempat_lahir;
         $this->form->email = $user->email;
         // $this->form->photo = $user->photo;
         $this->form->pendidikan = $user->pendidikan;

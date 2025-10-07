@@ -30,6 +30,9 @@ class ProfileForm extends Form
 
     public $jabatan;
 
+    public ?string $tempat_lahir = null;
+
+
     public function rules(): array
     {
         return [
@@ -46,6 +49,8 @@ class ProfileForm extends Form
             'tanggal_lahir' => ['nullable', 'date', 'before:today'], // tidak boleh tanggal masa depan
             'pendidikan' => ['nullable', 'string', 'max:50'],
             'jabatan' => ['nullable', 'string', 'max:50'],
+
+            'tempat_lahir' => 'nullable|string|max:255',
         ];
     }
 
@@ -86,6 +91,9 @@ class ProfileForm extends Form
         $updates = [];
         if ($this->name !== $this->user->name) {
             $updates['name'] = $this->name;
+        }
+        if ($this->tempat_lahir !== $this->user->tempat_lahir) {
+            $updates['tempat_lahir'] = $this->tempat_lahir;
         }
         if ($this->email !== $this->user->email) {
             $updates['email'] = $this->email;

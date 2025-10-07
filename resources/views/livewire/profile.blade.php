@@ -36,6 +36,13 @@
                         @enderror
                     </div>
                     <div class="form-group">
+                        <label for="tempat_lahir" class="form-label">Tempat Lahir</label>
+                        <input wire:model="form.tempat_lahir" type="text" id="tempat_lahir" class="form-control" placeholder="Masukkan nama Anda">
+                        @error('form.tempat_lahir')
+                        <small class="d-block mt-1 text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    <div class="form-group">
                         <label for="email" class="form-label">Email</label>
                         <input wire:model="form.email" type="text" id="email" class="form-control">
                         @error('form.email')

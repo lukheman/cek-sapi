@@ -6,10 +6,6 @@
                     <h2 class="section-title">Diagnosis Penyakit</h2>
                 </div>
                 <form wire:submit.prevent="diagnosis">
-                    <div class="mb-3">
-                        <label for="name" class="form-label fw-bold">Masukan Nama Anda</label>
-                        <input type="text" id="name" wire:model="namaPasien" class="form-control" placeholder="Nama Anda" required {{ $daftarGejalaKiri->isEmpty() ? 'disabled' : '' }}>
-                    </div>
 <div class="mb-4">
     <p class="text-muted">Pilih gejala penyakit sesuai dengan yang dialami hewan ternak anda</p>
 
