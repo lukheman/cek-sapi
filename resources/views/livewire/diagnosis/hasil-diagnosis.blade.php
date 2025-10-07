@@ -16,19 +16,25 @@
                 @endif
 
                 <div class="row g-3">
-                    <div class="col-12 col-md-4">
+                    <div class="col-12 col-md-6">
                         <div class="card p-3 bg-light">
                             <h5 class="fw-bold text-dark">Kode Penyakit</h5>
                             <p class="text-muted">{{ $penyakit['kode'] ?? 'Tidak ada kode penyakit' }}</p>
                         </div>
                     </div>
-                    <div class="col-12 col-md-4">
+                    <div class="col-12 col-md-6">
                         <div class="card p-3 bg-light">
                             <h5 class="fw-bold text-dark">Nama Penyakit</h5>
                             <p class="text-muted">{{ $penyakit['nama'] ?? 'Tidak ada nama penyakit' }}</p>
                         </div>
                     </div>
-                    <div class="col-12 col-md-4">
+                    <div class="col-12 col-md-6">
+                        <div class="card p-3 bg-light">
+                            <h5 class="fw-bold text-dark">Probabilitas</h5>
+                            <p class="text-muted">{{ $penyakit['probabilitas']}}</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
                         <div class="card p-3 bg-light">
                             <h5 class="fw-bold text-dark">Persentase</h5>
                             <p class="text-muted">{{ $penyakit['persentase'] ?? '0' }}%</p>
@@ -43,10 +49,10 @@
 
                 <div class="text-end">
 
-<button class="btn btn-primary"
+<a href="{{ route('diagnosis')}}" class="btn btn-success"
         style="background-color: #212529; border: none; outline: none; box-shadow: none;">
   Ulangi Diagnosis
-</button>
+</a>
                 </div>
             </div>
         </div>
