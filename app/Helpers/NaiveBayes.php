@@ -82,7 +82,7 @@ class NaiveBayes
 
 
             // Probabilitas penyakit = hasil kali semua probabilitas gejala
-            $this->probabilitasPenyakit[$penyakit->id] = round($this->p * array_product($himpunanProbabilitasGejalaPenyakit), 10);
+            $this->probabilitasPenyakit[$penyakit->id] = round($this->p * array_product($himpunanProbabilitasGejalaPenyakit), 6);
         }
 
         return $this->probabilitasTerbesarPenyakit();
