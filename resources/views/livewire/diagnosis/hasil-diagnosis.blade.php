@@ -28,16 +28,10 @@
                             <p class="text-muted">{{ $penyakit['nama'] ?? 'Tidak ada nama penyakit' }}</p>
                         </div>
                     </div>
-                    <div class="col-12 col-md-6">
+                    <div class="col-12">
                         <div class="card p-3 bg-light">
                             <h5 class="fw-bold text-dark">Probabilitas</h5>
-                            <p class="text-muted">{{ $penyakit['probabilitas']}}</p>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <div class="card p-3 bg-light">
-                            <h5 class="fw-bold text-dark">Persentase</h5>
-                            <p class="text-muted">{{ $penyakit['persentase'] ?? '0' }}%</p>
+                            <p class="text-muted">{{ sprintf('%.10f', $penyakit['probabilitas']) }}</p>
                         </div>
                     </div>
                 </div>
