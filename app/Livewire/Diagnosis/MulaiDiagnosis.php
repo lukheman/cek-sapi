@@ -5,7 +5,6 @@ namespace App\Livewire\Diagnosis;
 use App\Helpers\NaiveBayes;
 use App\Models\Gejala;
 use App\Models\Penyakit;
-use App\Models\RiwayatDiagnosis;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
