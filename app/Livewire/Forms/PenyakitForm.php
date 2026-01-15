@@ -24,12 +24,6 @@ class PenyakitForm extends Form
     protected function rules(): array
     {
         return [
-            'kode' => [
-                'required',
-                'string',
-                'max:50',
-                Rule::unique('penyakit', 'kode')->ignore($this->penyakit),
-            ],
             'nama' => 'required|string|max:255',
             'deskripsi' => 'required|string|min:5',
             'photo' => ['nullable', 'image', 'max:2048'], // Max 2MB
