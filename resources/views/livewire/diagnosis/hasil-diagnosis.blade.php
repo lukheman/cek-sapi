@@ -8,10 +8,8 @@
 
                 @if(!empty($penyakit['photo']))
                     <div class="text-center mb-4">
-                        <img src="{{ asset('storage/' . $penyakit['photo']) }}"
-                             alt="{{ $penyakit['nama'] }}"
-                             class="img-fluid rounded"
-                             style="max-height: 200px; object-fit: cover;">
+                        <img src="{{ asset('storage/' . $penyakit['photo']) }}" alt="{{ $penyakit['nama'] }}"
+                            class="img-fluid rounded" style="max-height: 200px; object-fit: cover;">
                     </div>
                 @endif
 
@@ -31,7 +29,7 @@
                     <div class="col-12">
                         <div class="card p-3 bg-light">
                             <h5 class="fw-bold text-dark">Probabilitas</h5>
-                            <p class="text-muted">{{ sprintf('%.10f', $penyakit['probabilitas']) }}</p>
+                            <p class="text-muted">{{ number_format($penyakit['probabilitas'], 20, '.', '') }}</p>
                         </div>
                     </div>
                 </div>
@@ -43,10 +41,10 @@
 
                 <div class="text-end">
 
-<a href="{{ route('diagnosis')}}" class="btn btn-success"
-        style="background-color: #212529; border: none; outline: none; box-shadow: none;">
-  Ulangi Diagnosis
-</a>
+                    <a href="{{ route('diagnosis')}}" class="btn btn-success"
+                        style="background-color: #212529; border: none; outline: none; box-shadow: none;">
+                        Ulangi Diagnosis
+                    </a>
                 </div>
             </div>
         </div>
