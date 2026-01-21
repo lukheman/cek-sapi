@@ -191,6 +191,7 @@
 <footer class="text-center">
     <div class="container">
         <p class="mb-0">&copy; 2025 CekSapi. Semua Hak Dilindungi.</p>
+        <a href="{{ route('login') }}" class="mt-2">Login</a>
     </div>
 </footer>
 

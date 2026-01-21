@@ -2,8 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/landing', \App\Livewire\Landing::class)->name('landing');
-Route::get('/', \App\Livewire\Index::class)->name('index')->middleware('auth');
+Route::get('/', \App\Livewire\Landing::class)->name('landing');
 Route::get('/diagnosis', \App\Livewire\Diagnosis\Flow::class)->name('diagnosis');
 Route::get('/landing/profile-pakar', \App\Livewire\ProfilePakarCard::class)->name('landing.profile-pakar');
 Route::get('/profile', \App\Livewire\Profile::class)->name('profile')->middleware('auth');
