@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CekSapi - Sistem Pakar Diagnosis Penyakit Sapi</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> <!-- Tambah untuk ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tambah untuk ikon -->
     <style>
         body {
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
             color: #212529;
         }
+
         .hero {
             background: linear-gradient(45deg, #212529, #343a40, #212529);
             background-size: 200% 200%;
@@ -22,6 +25,7 @@
             position: relative;
             overflow: hidden;
         }
+
         .hero::before {
             content: '';
             position: absolute;
@@ -29,13 +33,15 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
             z-index: 0;
         }
+
         .hero-content {
             position: relative;
             z-index: 1;
         }
+
         /* Tambah siluet sapi subtle di hero */
         .hero::after {
             content: '';
@@ -48,31 +54,39 @@
             opacity: 0.3;
             z-index: 1;
         }
+
         .navbar {
             background: linear-gradient(to right, #212529, #343a40);
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        .navbar-brand, .nav-link {
+
+        .navbar-brand,
+        .nav-link {
             color: white !important;
             transition: color 0.3s ease;
         }
+
         .nav-link:hover {
             color: #ced4da !important;
         }
+
         .feature-icon {
             font-size: 2.5rem;
             color: #212529;
             transition: transform 0.3s ease;
         }
+
         .feature-icon:hover {
             transform: scale(1.2);
         }
+
         .section-title {
             font-weight: 700;
             margin-bottom: 40px;
             color: #343a40;
             position: relative;
         }
+
         .section-title::after {
             content: '';
             width: 60px;
@@ -84,16 +98,19 @@
             transform: translateX(-50%);
             border-radius: 2px;
         }
+
         .card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             border: none;
             border-radius: 15px;
             background: white;
         }
+
         .card:hover {
             transform: translateY(-10px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
+
         .btn-success {
             background: linear-gradient(to right, #212529, #343a40);
             border: none;
@@ -102,16 +119,19 @@
             transition: all 0.3s ease;
             color: white;
         }
+
         .btn-success:hover {
             background: linear-gradient(to right, #343a40, #212529);
             transform: translateY(-2px);
         }
+
         footer {
             background: linear-gradient(to right, #1e1e1e, #212529);
             color: #adb5bd;
             padding: 30px 0;
             position: relative;
         }
+
         footer::before {
             content: '';
             position: absolute;
@@ -121,6 +141,7 @@
             height: 2px;
             background: linear-gradient(to right, transparent, #495057, transparent);
         }
+
         /* Tambah pola spot sapi di footer */
         footer::after {
             content: '';
@@ -133,11 +154,21 @@
             background-position: 0 0, 20px 20px;
             opacity: 0.1;
         }
+
         @keyframes gradientAnimation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
         }
+
         .login-container {
             min-height: calc(100vh - 200px);
             display: flex;
@@ -147,54 +178,62 @@
         }
     </style>
 </head>
+
 <body>
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="container">
-        <a class="navbar-brand fw-bold" href="#"><i class="fas fa-cow me-2"></i>CekSapi</a> <!-- Tambah ikon sapi di brand -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-            data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
-            aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('landing')}}" wire:navigate>Beranda</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('landing')}}#penyakit">Informasi Penyakit</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('diagnosis')}}">Diagnosis</a>
-                </li>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#"><i class="fas fa-cow me-2"></i>CekSapi</a>
+            <!-- Tambah ikon sapi di brand -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            @if(request()->routeIs('login'))
+                <a href="{{ route('landing') }}" class="btn btn-outline-light ms-auto" wire:navigate>
+                    <i class="fas fa-arrow-left me-2"></i>Kembali ke Beranda
+                </a>
+            @else
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('landing')}}" wire:navigate>Beranda</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('landing')}}#penyakit">Informasi Penyakit</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('diagnosis')}}">Diagnosis</a>
+                        </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('landing.profile-pakar')}}" wire:navigate>Profile Pakar</a>
-                </li>
-                <li class="nav-item">
-                    @auth
-                    <a class="nav-link" href="{{ route('dashboard')}}">Dashboard</a>
-                    @else
-                    <!-- <a class="nav-link" href="{{ route('login')}}" wire:navigate>Login</a> -->
-                    @endauth
-                </li>
-            </ul>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('landing.profile-pakar')}}" wire:navigate>Profile Pakar</a>
+                        </li>
+                        <li class="nav-item">
+                            @auth
+                                <a class="nav-link" href="{{ route('dashboard')}}">Dashboard</a>
+                            @else
+                                <!-- <a class="nav-link" href="{{ route('login')}}" wire:navigate>Login</a> -->
+                            @endauth
+                        </li>
+                    </ul>
+                </div>
+            @endif
         </div>
-    </div>
-</nav>
+    </nav>
 
     {{ $slot }}
 
-<!-- Footer -->
-<footer class="text-center">
-    <div class="container">
-        <p class="mb-0">&copy; 2025 CekSapi. Semua Hak Dilindungi.</p>
-        <a href="{{ route('login') }}" class="mt-2">Login</a>
-    </div>
-</footer>
+    <!-- Footer -->
+    <footer class="text-center">
+        <div class="container">
+            <p class="mb-0">&copy; 2025 CekSapi. Semua Hak Dilindungi.</p>
+            <a href="{{ route('login') }}" class="mt-2">Login</a>
+        </div>
+    </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
