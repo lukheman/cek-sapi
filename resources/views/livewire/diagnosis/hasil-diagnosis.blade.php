@@ -29,7 +29,7 @@
                     <div class="col-12">
                         <div class="card p-3 bg-light">
                             <h5 class="fw-bold text-dark">Probabilitas</h5>
-                            <p class="text-muted">{{ number_format($penyakit['probabilitas'], 20, '.', '') }}</p>
+                            <p class="text-muted">{{ number_format($penyakit['probabilitas'], 10, '.', '') }}</p>
                         </div>
                     </div>
                 </div>
